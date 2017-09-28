@@ -23,6 +23,7 @@ struct LuaScriptingContext final
 {
     LuaScriptingContext(const LocationDependentData &location_dependent_data)
         : location_dependent_data(location_dependent_data)
+        , last_location_point(std::numeric_limits<double>::quiet_NaN(), 0.)
     {
     }
 
@@ -52,7 +53,11 @@ struct LuaScriptingContext final
 
     int api_version;
     sol::table profile_table;
+
+    // Reference to immutable location dependent data and locations memo
     const LocationDependentData &location_dependent_data;
+    LocationDependentData::point_t last_location_point;
+    std::vector<std::size_t> last_location_indexes;
 };
 
 /**
